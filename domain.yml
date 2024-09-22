@@ -1,0 +1,162 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - bot_challenge
+  - check_nearest_atm
+  - type_location
+  - exchange_currencies
+  - current_location
+  - choosing_location
+  - check_account_balance
+  - transfer_money
+  - name_form
+  - missing_name
+  - missing_last_name
+  - choosing_account
+  - nom_b
+
+
+
+
+
+entities:
+  - from_currency
+  - to_currency
+  - amount_to_convert
+  - amount_to_send
+  - recipient
+  - last_name
+  - name
+  - nb
+  - nom
+
+slots:
+  nom:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: custom
+  last_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: last_name
+  name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: name
+  from_currency:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: from_currency
+  to_currency:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: to_currency
+
+  amount_to_convert:
+    type: float
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: amount_to_convert
+
+  amount_to_send:
+    type: float
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: amount_to_send
+
+  recipient:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: recipient
+
+
+responses:
+  utter_greet:
+  - text: "Hello! How can I help you?"
+
+  utter_goodbye:
+  - text: "Goodbye!"
+
+  utter_iamabot:
+  - text: "I am a your banking bot"
+
+  utter_ask_for_location:
+  - text: "Sure, would you like to use your current location or enter a different one?"
+
+
+  utter_looking_for_closest_atm1:
+  - text: "Alright, I’m looking for the nearest ATM based on your current location."
+
+
+  utter_looking_for_closest_atm2:
+  - text: "Alright, please type in your location."
+
+
+  utter_ask_money_to_send:
+  - text: "enter the amount please"
+
+  utter_ask_name:
+  - text: "enter your name please"
+
+  utter_ask_last_name:
+  - text: "enter your last name please"
+
+  utter_ask_to_currency:
+  - text: "To which currency would you like to convert your amount?"
+
+  utter_ask_from_currency:
+  - text: "From which currency would you like to convert your amount?"
+
+
+  utter_ask_amount_to_convert:
+  - text: "Please enter the amount to convert."
+
+  utter_ask_recipient:
+  - text: "please enter your recipient"
+
+  utter_ask_amount_to_send:
+  - text: "please enter the amount you want to send"
+
+  utter_enter_name:
+  - text: "Please enter your full name."
+
+
+
+
+actions:
+  - action_perform_currency_conversion
+  - action_extract_location
+  - action_find_atm_with_current_location
+  - action_transfer_money
+  - action_say_name
+  - action_reset_slots
+  - action_retrieve_accounts
+  - action_balance
+  - action_custom_fallback
+
+forms:
+  test_form:
+    required_slots:
+      - name
+      - last_name
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
